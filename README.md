@@ -37,7 +37,3 @@ msclientes/            # Microserviço Clientes
 - O pom.xml raiz centraliza configurações e dependências comuns.
 - Cada microserviço possui seu próprio pom.xml, herdando do projeto pai.
 - Recomenda-se utilizar Java 11.
-
----
-Dúvidas ou sugestões? Abra uma issue!
-
