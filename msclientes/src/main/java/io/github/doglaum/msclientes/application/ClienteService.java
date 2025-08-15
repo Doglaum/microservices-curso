@@ -2,7 +2,6 @@ package io.github.doglaum.msclientes.application;
 
 import io.github.doglaum.msclientes.domain.Cliente;
 import io.github.doglaum.msclientes.infra.repository.ClienteRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
