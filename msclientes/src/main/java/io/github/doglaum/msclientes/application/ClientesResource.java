@@ -1,7 +1,7 @@
 package io.github.doglaum.msclientes.application;
 
 import io.github.doglaum.msclientes.application.representation.ClienteSaveRequest;
-import io.github.doglaum.msclientes.domain.Cliente;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("clientes")
+@Slf4j
 public class ClientesResource {
 
     @Autowired
@@ -18,6 +19,7 @@ public class ClientesResource {
 
     @GetMapping
     public String status() {
+        log.info("obtendo status do microservice de clientes")
         return "ok";
     }
 
