@@ -1,6 +1,6 @@
 # Monorepo Microservices
 
-Este repositório contém quatro microserviços organizados em um monorepo utilizando Maven:
+Este repositório contém cinco microserviços organizados em um monorepo utilizando Maven:
 
 - **eurekaserver**: Serviço de registro Eureka para descoberta de serviços.
 - **msclientes**: Microserviço de clientes, registrado no Eureka.
