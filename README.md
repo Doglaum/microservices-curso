@@ -36,12 +36,12 @@ mscloudgateway/        # Microserviço de Cloud Gateway
    cd msclientes
    mvn spring-boot:run
    ```
-4. **Executar cartoes:**
+4. **Executar mscartoes:**
    ```
    cd mscartoes
    mvn spring-boot:run
    ```
-5. **Executar Cloud Gateway:**
+5. **Executar mscloudgateway:**
    ```
    cd mscloudgateway
    mvn spring-boot:run
@@ -50,4 +50,4 @@ mscloudgateway/        # Microserviço de Cloud Gateway
 ## Observações
 - O pom.xml raiz centraliza configurações e dependências comuns.
 - Cada microserviço possui seu próprio pom.xml, herdando do projeto pai.
-- Recomenda-se utilizar Java 11.
+- Recomenda-se utilizar Java 17.
