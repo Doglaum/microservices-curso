@@ -3,9 +3,11 @@ package io.github.doglaum.msavaliadorcredito.application;
 import feign.FeignException;
 import io.github.doglaum.msavaliadorcredito.application.ex.DadosClienteNotFoundException;
 import io.github.doglaum.msavaliadorcredito.application.ex.ErroComunicacaoMicroservicesException;
+import io.github.doglaum.msavaliadorcredito.application.ex.ErroSolicitacaoCartaoException;
 import io.github.doglaum.msavaliadorcredito.domain.model.*;
 import io.github.doglaum.msavaliadorcredito.infra.clients.CartoesResourceClient;
 import io.github.doglaum.msavaliadorcredito.infra.clients.ClienteResourceClient;
+import io.github.doglaum.msavaliadorcredito.infra.mqueue.SolicitacaoEmissaoCartaoPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,7 @@ public class AvaliadorCreditoService {
 
     private final ClienteResourceClient clienteResourceClient;
     private final CartoesResourceClient cartoesResourceClient;
+    private final SolicitacaoEmissaoCartaoPublisher solicitacaoEmissaoCartaoPublisher;
 
     public SituacaoCliente obtemSituacaoCliente(String cpf) throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException {
         try {
@@ -69,5 +73,15 @@ public class AvaliadorCreditoService {
     private BigDecimal getLimiteAprovado(BigDecimal idade, BigDecimal limiteBasico) {
         var fator = idade.divide(BigDecimal.valueOf(10));
         return fator.multiply(limiteBasico);
+    }
+
+    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados) {
+        try {
+            solicitacaoEmissaoCartaoPublisher.solicitarCartao(dados);
+            var protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartao(protocolo);
+        } catch (Exception e) {
+            throw new ErroSolicitacaoCartaoException(e.getMessage());
+        }
     }
 }

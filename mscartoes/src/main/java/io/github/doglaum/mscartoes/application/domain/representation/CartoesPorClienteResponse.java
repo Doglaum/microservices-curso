@@ -15,7 +15,7 @@ public class CartoesPorClienteResponse {
 
     private String nome;
     private String bandeira;
-    private BigDecimal limite;
+    private BigDecimal limiteLiberado;
 
     public static CartoesPorClienteResponse fromModel(ClienteCartao cartao) {
         return new CartoesPorClienteResponse(
