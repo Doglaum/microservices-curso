@@ -8,12 +8,14 @@ import io.github.doglaum.mscartoes.application.domain.DadosSolicitacaoEmissaoCar
 import io.github.doglaum.mscartoes.infra.repository.CartaoRepository;
 import io.github.doglaum.mscartoes.infra.repository.ClienteCartaoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class EmissaoCartaoSubscriber{
 
     private final CartaoRepository cartaoRepository;
@@ -32,7 +34,7 @@ public class EmissaoCartaoSubscriber{
             clienteCartao.setLimite(dados.getLimiteLiberado());
             clienteCartaoRepository.save(clienteCartao);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error("Error ao receber solicitação de emissão de cartão: {}", e.getMessage());
         }
     }
 }
